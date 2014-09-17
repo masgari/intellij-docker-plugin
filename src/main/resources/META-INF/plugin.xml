@@ -1,0 +1,77 @@
+<idea-plugin version="2">
+    <id>com.masgari.plugin.docker</id>
+    <name>DockerPlugin</name>
+    <version>0.1</version>
+    <vendor email="mammad.asgari@gmail.com" url="http://www.github.com/masgari">Mamad Asgari</vendor>
+
+    <description><![CDATA[
+      A simple plugin for managing docker.<br>
+      <ul>
+        <li>List docker containers</li>
+        <li>List docker images</li>
+        <li>Create new container</li>
+        <li>Open container logs in a new tab</li>
+      </ul>
+    ]]></description>
+
+    <change-notes><![CDATA[
+            ]]>
+    </change-notes>
+
+    <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+    <idea-version since-build="131"/>
+
+    <category>Tools Integration</category>
+    <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <toolWindow id="Docker" anchor="right" factoryClass="com.fardaz.docker.ui.DToolWindowFactory"
+                    icon="/docker13x13.png"></toolWindow>
+
+        <applicationService serviceInterface="com.fardaz.docker.service.DockerService"
+                            serviceImplementation="com.fardaz.docker.service.DockerService"/>
+
+        <applicationService serviceInterface="com.fardaz.docker.service.config.DockerSettings"
+                            serviceImplementation="com.fardaz.docker.service.config.DockerSettings"/>
+
+        <applicationService serviceImplementation="masgari.Test"/>
+    </extensions>
+
+    <application-components>
+    </application-components>
+
+    <project-components>
+        <!-- Add your project components here -->
+    </project-components>
+
+    <actions>
+        <group id="Docker.Containers.ActionsGroup" text="Containers Actions"/>
+        <group id="Docker.Container.ActionsGroup" text="Container Actions"/>
+        <group id="Docker.Images.ActionsGroup" text="Images Actions"/>
+        <group id="Docker.Host.ActionsGroup" text="Host Actions"/>
+
+        <action id="Docker.Main.AddAction" text="Add New Host" icon="AllIcons.General.Add"
+                class="com.fardaz.docker.ui.action.AddAction">
+        </action>
+
+        <action id="Docker.Main.SettingsAction" text="Settings" icon="AllIcons.General.ProjectSettings"
+                class="com.fardaz.docker.ui.action.SettingsAction">
+        </action>
+
+        <action id="Docker.Containers.RefreshAction" text="Refresh" icon="AllIcons.Actions.Refresh"
+                class="com.fardaz.docker.ui.action.container.RefreshContainersAction">
+            <add-to-group group-id="Docker.Containers.ActionsGroup" anchor="first"/>
+        </action>
+
+        <action id="Docker.Images.DockerImageSearchAction" text="Search" icon="AllIcons.Actions.Search"
+                class="com.fardaz.docker.ui.action.image.SearchAction">
+            <add-to-group group-id="Docker.Images.ActionsGroup" anchor="first"/>
+        </action>
+    </actions>
+
+</idea-plugin>
